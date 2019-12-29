@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async getItems() {
-      const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=UCsvn_Po0SmunchJYOWpOxMg&maxResults=5&key=${process.env.VUE_APP_API_KEY}`);
+      const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=${process.env.VUE_APP_USER_ID}&maxResults=5&key=${process.env.VUE_APP_API_KEY}`);
       const items = await response.json();
       this.res = items;
     }
