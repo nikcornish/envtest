@@ -2,8 +2,8 @@
   <div id="app">
     
       <div v-for="item in res.items" :key="item.id">
-        <h1>{{item.snippet.title }}</h1>
-        <img :src="item.snippet.thumbnails.standard.url" />
+        <h1>{{ item.snippet.title }}</h1>
+        <img v-if="item.snippet.thumbnails.standard" :src="item.snippet.thumbnails.standard.url" />
       </div>
     
   </div>
@@ -17,13 +17,14 @@ export default {
       res: ''
     }
   },
-  created() {
+  mounted() {
     this.getItems();
   },
   methods: {
     async getItems() {
       const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=${process.env.VUE_APP_USER_ID}&maxResults=5&key=${process.env.VUE_APP_API_KEY}`);
       const items = await response.json();
+      console.log(items);
       this.res = items;
     }
   }
