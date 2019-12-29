@@ -19,7 +19,6 @@ export default {
   },
   created() {
     this.getItems();
-    console.log(process.env);
   },
   methods: {
     async getItems() {
