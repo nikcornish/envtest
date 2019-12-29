@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+      <div v-for="item in res.items" :key="item.id">
+        <h1>{{item.snippet.title }}</h1>
+        <img :src="item.snippet.thumbnails.standard.url" />
+      </div>
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data: function() {
+    return {
+      res: ''
+    }
+  },
+  created() {
+    this.getItems();
+    console.log(process.env);
+  },
+  methods: {
+    async getItems() {
+      const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=UCsvn_Po0SmunchJYOWpOxMg&maxResults=5&key=${process.env.VUE_APP_API_KEY}`);
+      const items = await response.json();
+      this.res = items;
+    }
   }
 }
 </script>
@@ -21,8 +36,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
